@@ -19,6 +19,7 @@ private boolean usearil          = false;
 private int moveInterval         = 1000;
 private RobotMovesInfo robotInfo;
 private boolean stop=false;
+private boolean escludi = false;
 private String mappa="";
     //public enum robotLang {cril, aril}    //todo
 
@@ -34,6 +35,10 @@ private String mappa="";
         delay(moveInterval ); //to reduce the robot move rate
     }
 
+    public void setEscludi(boolean escludi){
+	this.escludi=escludi;
+    }
+
     public synchronized String doBoundaryInit(){
         System.out.println("RobotBoundaryLogic | doBoundary rs=" + rs + " usearil=" + usearil);
         rs.request( usearil ? MsgRobotUtil.wMsg : MsgRobotUtil.forwardMsg  );
@@ -41,7 +46,8 @@ private String mappa="";
         //delay(moveInterval ); //to reduce the robot move rate
         System.out.println( mapUtil.getMapRep() );
         mappa+="w";
-        /*while( ! boundaryWalkDone ) {
+	if(!escludi){
+         while( ! boundaryWalkDone ) {
             try {
                 System.out.println("prima wait");
                 wait();
@@ -51,7 +57,8 @@ private String mappa="";
              } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }*/
+          }
+	}
         return robotInfo.getMovesRepresentationAndClean();
     }
 	public String getmappa(){

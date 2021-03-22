@@ -48,6 +48,7 @@ Hhandler of the messages sent by WENv over the cmdsocket-8091 to notify:
         else if( infoJson.has("robotcmd")) handleGui(infoJson);
     }
     protected void handleGui(JSONObject infoJson){
+	robotBehaviorLogic.setEscludi(true);
         String comando= (String) infoJson.get("robotcmd");
         if (comando.equals("RESUME")){
             resume();
